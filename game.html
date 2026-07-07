@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloomstead — a cozy automation game</title>
+<meta name="description" content="The world has gone quiet. Build little machines and let your factory bring the bloom back — tile by tile. A cozy automation game.">
+<meta property="og:title" content="Bloomstead — a cozy automation game">
+<meta property="og:description" content="The world has gone quiet. Build little machines and let your factory bring the bloom back — tile by tile.">
+<meta property="og:image" content="https://bloodstead.github.io/bloomstead-privacy/media/main_capsule.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bloodstead.github.io/bloomstead-privacy/game.html">
+<style>
+@font-face {
+  font-family: "VT323";
+  src: url("font.ttf") format("truetype");
+  font-display: swap;
+}
+:root {
+  --ground: #f2f6ee;
+  --panel: #ffffff;
+  --panel-edge: #cfdcc8;
+  --ink: #22301f;
+  --dim: #5d6f56;
+  --grass: #2f7c33;
+  --grass-bright: #3f9c44;
+  --amber: #a06f14;
+  --amber-soft: #f4e3bd;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #0d1410; --panel: #16221a; --panel-edge: #2c4030;
+    --ink: #e6efe0; --dim: #9db396; --grass: #8fe08a; --grass-bright: #aef2a6;
+    --amber: #e8c063; --amber-soft: #3a3015;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0d1410; --panel: #16221a; --panel-edge: #2c4030;
+  --ink: #e6efe0; --dim: #9db396; --grass: #8fe08a; --grass-bright: #aef2a6;
+  --amber: #e8c063; --amber-soft: #3a3015;
+}
+:root[data-theme="light"] {
+  --ground: #f2f6ee; --panel: #ffffff; --panel-edge: #cfdcc8;
+  --ink: #22301f; --dim: #5d6f56; --grass: #2f7c33; --grass-bright: #3f9c44;
+  --amber: #a06f14; --amber-soft: #f4e3bd;
+}
+* { box-sizing: border-box; }
+html { background: var(--ground); }
+body {
+  margin: 0; color: var(--ink);
+  font: 17px/1.65 "Segoe UI", system-ui, sans-serif;
+  background: radial-gradient(1200px 500px at 70% -10%, color-mix(in srgb, var(--grass) 7%, transparent), transparent 70%), var(--ground);
+}
+main { max-width: 900px; margin: 0 auto; padding: 40px 20px 90px; }
+header.site {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 18px;
+  padding: 26px 0 18px; border-bottom: 2px solid var(--panel-edge); margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.brand, h1, h2 { font-family: "VT323", "Courier New", monospace; font-weight: 400; letter-spacing: .5px; }
+.brand { font-size: 40px; line-height: 1; color: var(--grass); margin: 0; }
+.brand small { display: block; font-size: 18px; color: var(--dim); letter-spacing: 2px; }
+nav.top { display: flex; gap: 10px; flex-wrap: wrap; }
+nav.top a { font-family: "VT323", monospace; font-size: 19px; color: var(--grass); text-decoration: none; border: 2px solid var(--panel-edge); padding: 4px 14px; background: var(--panel); }
+nav.top a:hover, nav.top a:focus-visible { border-color: var(--grass); outline: none; }
+p.lead { color: var(--dim); font-size: 19px; }
+h2 { font-size: 30px; color: var(--grass); margin: 34px 0 8px; }
+.hero { width: 100%; height: auto; display: block; border: 2px solid var(--panel-edge); image-rendering: auto; }
+video {
+  width: 100%; height: auto; display: block;
+  border: 2px solid var(--panel-edge); background: #000;
+}
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 8px; }
+.gallery a { display: block; border: 2px solid var(--panel-edge); background: var(--panel); }
+.gallery a:hover, .gallery a:focus-visible { border-color: var(--grass); outline: none; }
+.gallery img { width: 100%; height: auto; display: block; }
+ul.features { margin: 8px 0 0; padding-left: 22px; }
+ul.features li { margin: 6px 0; }
+section.card {
+  border: 2px solid var(--panel-edge); border-left: 6px solid var(--grass);
+  background: var(--panel); padding: 6px 24px 18px; margin: 26px 0;
+}
+section.card h2 { margin-top: 14px; }
+table { border-collapse: collapse; margin-top: 6px; }
+td, th { border: 1px solid var(--panel-edge); padding: 6px 14px; text-align: left; }
+th { color: var(--amber); text-transform: uppercase; font-size: 13.5px; letter-spacing: 1px; }
+.pill { display: inline-block; background: var(--amber-soft); color: var(--amber); padding: 1px 10px; font-size: 14px; }
+footer { margin-top: 70px; color: var(--dim); font-size: 14px; border-top: 2px solid var(--panel-edge); padding-top: 16px; }
+a { color: var(--grass); }
+a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<main>
+<header class="site">
+  <p class="brand">BLOOMSTEAD<small>a cozy automation game</small></p>
+  <nav class="top" aria-label="Navigation">
+    <a href="versions.html">Release notes</a>
+    <a href="index.html">Privacy policy</a>
+  </nav>
+</header>
+
+<p class="lead">The world has gone quiet. Harvest sap, build little machines, and let your
+factory bring the bloom back — tile by tile, level after level. The reward is watching
+a dead world turn green.</p>
+
+<img class="hero" src="media/header_capsule.png" alt="Bloomstead — a blooming meadow with a little sap factory" width="920" height="430">
+
+<h2>Trailer</h2>
+<video controls preload="metadata" poster="media/screenshot_01_factory_meadow.png">
+  <source src="media/bloomstead_trailer.mp4" type="video/mp4">
+  Your browser cannot play this video — <a href="media/bloomstead_trailer.mp4">download the trailer</a>.
+</video>
+
+<section class="card">
+<h2>What's inside</h2>
+<ul class="features">
+  <li>🏭 <strong>9 little machines</strong> — extractor, conveyor, bloomer, greenhouse, splitter, dynamo, sprinkler, tunnel, pump — that snap together into satisfying chains.</li>
+  <li>🗺️ <strong>A campaign of handcrafted levels</strong>, then endless generated islands — every one solvable, guaranteed. A daily challenge with records.</li>
+  <li>🌸 <strong>9 biomes</strong> — meadow, autumn, tundra, dusk, jungle, sakura, emerald, desert, coral — each with its own palette and props.</li>
+  <li>🖐️ <strong>Plant by hand too.</strong> Carry a seed, walk anywhere, green a tile yourself. Automation scales; your hands stay free.</li>
+  <li>⭐ <strong>Progression that sticks</strong> — permanent upgrades, prestige "Bloom Essence", achievements, stats, and a free-garden mode with decorations and a photo mode.</li>
+  <li>🎵 <strong>Gentle by design</strong> — lo-fi soundtrack, no timers, no failure. 100% refund when you remove a machine, so you can never get stuck.</li>
+  <li>🌍 English &amp; French · remappable keys · reduced-motion option · full touch support.</li>
+</ul>
+</section>
+
+<h2>Screenshots</h2>
+<div class="gallery">
+  <a href="media/screenshot_01_factory_meadow.png"><img loading="lazy" src="media/thumbs/screenshot_01_factory_meadow.jpg" alt="A little factory rebloooming a meadow" width="640" height="360"></a>
+  <a href="media/screenshot_02_bloom_wave_jungle.png"><img loading="lazy" src="media/thumbs/screenshot_02_bloom_wave_jungle.jpg" alt="Sprinklers firing a bloom wave in the jungle" width="640" height="360"></a>
+  <a href="media/screenshot_03_desert.png"><img loading="lazy" src="media/thumbs/screenshot_03_desert.jpg" alt="A conveyor chain crossing the desert" width="640" height="360"></a>
+  <a href="media/screenshot_04_sakura.png"><img loading="lazy" src="media/thumbs/screenshot_04_sakura.jpg" alt="Planting by hand under the sakura" width="640" height="360"></a>
+  <a href="media/screenshot_05_world_map.png"><img loading="lazy" src="media/thumbs/screenshot_05_world_map.jpg" alt="The world map and its golden path" width="640" height="360"></a>
+  <a href="media/screenshot_06_garden.png"><img loading="lazy" src="media/thumbs/screenshot_06_garden.jpg" alt="A fully bloomed garden" width="640" height="360"></a>
+</div>
+
+<section class="card">
+<h2>En français</h2>
+<p>Le monde s'est éteint. Récolte la sève, assemble de petites machines et laisse ton
+usine faire refleurir la terre, case après case. Un jeu d'automation tout doux —
+9 machines, 9 biomes, une campagne faite main puis des îles à l'infini, un défi du jour,
+un jardin libre… et jamais d'échec : la récompense, c'est de voir le monde reverdir.
+Interface en français incluse.</p>
+</section>
+
+<h2>Where to play</h2>
+<table>
+  <tr><th>Platform</th><th>Status</th></tr>
+  <tr><td>🖥️ PC — Steam &amp; itch.io</td><td><span class="pill">In preparation</span></td></tr>
+  <tr><td>📱 Android — Google Play</td><td><span class="pill">In preparation</span></td></tr>
+  <tr><td>🌐 Browser — web portals</td><td><span class="pill">In preparation</span></td></tr>
+</table>
+<p>The Steam page is being prepared — the wishlist link will appear here as soon as it is live.</p>
+
+<footer>
+<p>📜 <a href="versions.html">Release notes</a> · 🔒 <a href="index.html">Privacy policy</a> ·
+🐙 <a href="https://github.com/Bloodstead">GitHub</a> · 📫 valentin.damlencourt@gmail.com</p>
+<p>Every visual and every note of music in Bloomstead is generated by the game's own code — no imported assets.</p>
+</footer>
+</main>
+</body>
+</html>
