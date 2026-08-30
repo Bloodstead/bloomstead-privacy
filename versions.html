@@ -87,6 +87,45 @@ a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
 
 <!-- BLOOM_RELEASES -->
 
+<section class="release" id="v1.5.0">
+<h2>v1.5.0 <time datetime="2026-08-30">August 30, 2026</time></h2>
+<h3>New features</h3>
+<ul>
+<li>Rappel [H] interface qui s&#x27;estompe quand l&#x27;UI est masquee (un H accidentel ne bloque plus personne, la vue propre le reste)</li>
+<li>Une machine qui fleurit soigne aussi sa propre case (Floreur/Serre/Arroseur) : plus de case fanee cachee sous un pot repris</li>
+<li>Pastille rotation au survol d&#x27;une piece (clic = 90 degres, idee playtest) ; retrait des ombres de nuages en niveau</li>
+<li>Le guidage donne le SENS : pose auto-orientee sur la case suggeree, chevron de direction dessus, chevron ambre tourne-moi sur les pieces du trajet mal orientees (extracteur compris), un clic les retourne</li>
+<li>Pieces deplacables a la souris (drag) + conseiller central : un plan (BFS 0-1) pilote prises, secours et messages, plus jamais de conseil inutile</li>
+<li>Modele Perry, usine live + tutoriel complet + guidage lumineux</li>
+</ul>
+<h3>Fixes</h3>
+<ul>
+<li>On ne conseille JAMAIS de deplacer une piece qui fleurit encore (vol d&#x27;optimisation retire du secours ; le plan continue de guider les nouvelles poses) et le verdict a fini sa zone attend 3 s apres le dernier tir (les petales retombent, le fondu vert s&#x27;affiche)</li>
+<li>Contenu de la pastille Heure doree recale sur son rect (les Y codes en dur avaient derive au deplacement)</li>
+<li>La bulle Nouveau piece ne brule plus sa fenetre en silence : son compte a rebours se met en pause tant qu&#x27;une ceremonie/plaque parle, elle s&#x27;affiche apres</li>
+<li>L&#x27;Aide activee reste pour tout le niveau (redemarrage/niveau suivant la coupent), chaque activation repasse par la pub au-dela des niveaux d&#x27;apprentissage</li>
+<li>Le conseiller ne parle plus sans etre invite au-dela des 3 niveaux d&#x27;apprentissage : marquages, prises et secours attendent le bouton Aide (auto-aim et clic-retourne suivent la meme visibilite)</li>
+<li>Pastille rotation reservee a la Main (avec un outil elle se lisait comme une pose), chevron du hint efface sous le fantome, marquage tourne-moi redessine en fleche circulaire fine</li>
+<li>La fleche de la case suggeree ne defile plus (doublon d&#x27;animation avec les chevrons du tapis voisin), sens lisible en statique</li>
+<li>Un seul guide a la fois : la premiere piece a contresens (ordre du trajet) porte une plaque sombre + gros chevrons lisibles, la case suivante attend son tour, message Tourne en priorite</li>
+<li>Plus jamais d&#x27;ecran muet, le secours parle aussi piece en main quand aucune prise n&#x27;a rien a montrer (chaine fermee loin du fane)</li>
+<li>Guidage honnete, prises filtrees (portee reelle, jamais a l&#x27;oppose du fane) + fane restant en creme au lieu de l&#x27;ambre pose-ici</li>
+</ul>
+<h3>Other changes</h3>
+<ul>
+<li>Prod v1.5.0 : versions alignees partout (Android 10500/1.5.0, Windows 1.5.0.0, macOS 1.5.0) ; plan : les chaines protegees exigent une machine VIVANTE (feu recent), et une cible affamee dont la route depasse le budget stock+pieces libres redevient deplacable</li>
+<li>Niveau 7 : le fantome du secours porte la piece du dormeur (une serre), plus un floreur code en dur qui n&#x27;existe pas sur ce niveau ; heure doree : pastille recentree dans la fenetre libre (elle chevauchait le panneau Pieces de 2px), interieurs derives ; scene gold BLINK</li>
+<li>Le coach dit toute la verite sur les niveaux a seve : si la pose du plan n&#x27;est pas payable, il montre la recolte (Main qui pulse si un outil est tenu + anneau sur le cristal le plus proche avec de la seve) au lieu de pointer une pose impayable</li>
+<li>Fix niveau 3 : une lecon du monde vivant avec un outil en main commence par Prends la Main (slot Main pulse) avant sa consigne : cueillir/pecher/nettoyer exigent la main vide et le tap posait a la place</li>
+<li>LE vrai coupable des trois retours &#x27;supprime le fleuri&#x27; : la demo du clic-droit post-passation entourait de ROUGE le floreur de la demo en pleine floraison pendant 7 s (et bloquait le conseil des tapis) : devient une simple astuce sans cible (Astuce : clic droit = reprendre une piece), 4 s, la parole revient vite au guidage</li>
+<li>Retours niveau 2 + finitions : le dormeur explique POURQUOI (Ce Floreur a fini sa zone + son cadre de portee jaune vide de fane) ; le survol du bouton rotation ne surligne plus la case du dessus ; brume retiree des niveaux (les nappes blanches lisaient comme des nuages) ; scenes p2repro NOSTOCK</li>
+<li>Fix niveau 2 : la bulle Nouveau avale le clic (plus de pose a travers les mots) et se ferme au tap ; le plan ne traite plus le retournement d&#x27;un extracteur a ligne vivante comme gratuit (+6 au depart hors-front) : sur P2 il enseignait de renverser l&#x27;extracteur au lieu de brancher une bifurcation</li>
+<li>Check complet : sauvegarde de reprise protegee pendant un drag (piece jamais perdue a la fermeture), hotbar cachee pendant les ceremonies plein ecran, pastille Heure doree degagee du bouton Aide, prerequis iOS documentes dans la config</li>
+<li>Fix niveau 2 : les lecons du monde vivant ne demarrent plus sur un niveau de deblocage ni pendant l&#x27;Aide ni en pleine manipulation (calme requis), et jamais par-dessus une planche qui parle ; le nuage de la mascotte redevient la planche en bois sculptee de la DA</li>
+</ul>
+<p class="tech">… plus 18 technical improvements under the hood.</p>
+</section>
+
 <section class="release" id="v1.4.1">
 <h2>v1.4.1 <time datetime="2026-08-07">August 7, 2026</time></h2>
 <h3>New features</h3>
