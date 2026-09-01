@@ -3,169 +3,322 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bloomstead · a cozy automation game</title>
-<meta name="description" content="The world has gone quiet. Build small machines and let your factory bring the bloom back, tile by tile. A cozy automation game.">
-<meta property="og:title" content="Bloomstead · a cozy automation game">
-<meta property="og:description" content="The world has gone quiet. Build small machines and let your factory bring the bloom back, tile by tile.">
+<title>Bloomstead · a cozy automation puzzle</title>
+<meta name="description" content="The world has gone quiet. Place a small stock of machines, for good, and let your factory bring the bloom back tile by tile. A cozy automation puzzle for PC, Android and browser.">
+<meta property="og:title" content="Bloomstead · a cozy automation puzzle">
+<meta property="og:description" content="The world has gone quiet. Place a small stock of machines, for good, and let your factory bring the bloom back tile by tile.">
 <meta property="og:image" content="https://bloodstead.github.io/bloomstead-privacy/media/main_capsule.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bloodstead.github.io/bloomstead-privacy/">
+<meta name="theme-color" content="#10190f">
 <style>
-@font-face {
-  font-family: "VT323";
-  src: url("font.ttf") format("truetype");
-  font-display: swap;
-}
+@font-face { font-family: "VT323"; src: url("font.ttf") format("truetype"); font-display: swap; }
 :root {
-  --ground: #f2f6ee;
-  --panel: #ffffff;
-  --panel-edge: #cfdcc8;
-  --ink: #22301f;
-  --dim: #5d6f56;
-  --grass: #2f7c33;
-  --grass-bright: #3f9c44;
-  --amber: #a06f14;
-  --amber-soft: #f4e3bd;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ground: #0d1410; --panel: #16221a; --panel-edge: #2c4030;
-    --ink: #e6efe0; --dim: #9db396; --grass: #8fe08a; --grass-bright: #aef2a6;
-    --amber: #e8c063; --amber-soft: #3a3015;
-  }
-}
-:root[data-theme="dark"] {
-  --ground: #0d1410; --panel: #16221a; --panel-edge: #2c4030;
-  --ink: #e6efe0; --dim: #9db396; --grass: #8fe08a; --grass-bright: #aef2a6;
-  --amber: #e8c063; --amber-soft: #3a3015;
-}
-:root[data-theme="light"] {
-  --ground: #f2f6ee; --panel: #ffffff; --panel-edge: #cfdcc8;
-  --ink: #22301f; --dim: #5d6f56; --grass: #2f7c33; --grass-bright: #3f9c44;
-  --amber: #a06f14; --amber-soft: #f4e3bd;
+  --board: #10190f; --board-2: #152218; --board-3: #1c2c1f;
+  --plank: #6b4726; --plank-hi: #8a5f33; --plank-dk: #3d2612; --peg: #2a1a0c;
+  --cream: #f1eddc; --dim: #a8b39a; --dim-2: #7d8a74;
+  --grass: #78bf4a; --grass-deep: #4f8f2e; --amber: #ffd166; --amber-deep: #d99a2b; --red: #e06a5a;
+  --pixel: "VT323", "Courier New", monospace;
 }
 * { box-sizing: border-box; }
-html { background: var(--ground); }
+html { background: var(--board); scroll-behavior: smooth; }
 body {
-  margin: 0; color: var(--ink);
-  font: 17px/1.65 "Segoe UI", system-ui, sans-serif;
-  background: radial-gradient(1200px 500px at 70% -10%, color-mix(in srgb, var(--grass) 7%, transparent), transparent 70%), var(--ground);
+  margin: 0; color: var(--cream); background: var(--board);
+  font: 17px/1.65 "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-image:
+    radial-gradient(1100px 600px at 15% 0%, rgba(120, 191, 74, .10), transparent 65%),
+    radial-gradient(900px 500px at 90% 20%, rgba(255, 209, 102, .07), transparent 60%);
 }
-main { max-width: 900px; margin: 0 auto; padding: 40px 20px 90px; }
-header.site {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 18px;
-  padding: 26px 0 18px; border-bottom: 2px solid var(--panel-edge); margin-bottom: 10px;
-  flex-wrap: wrap;
-}
-.brand, h1, h2 { font-family: "VT323", "Courier New", monospace; font-weight: 400; letter-spacing: .5px; }
-.brand { font-size: 40px; line-height: 1; color: var(--grass); margin: 0; }
-.brand small { display: block; font-size: 18px; color: var(--dim); letter-spacing: 2px; }
-nav.top { display: flex; gap: 10px; flex-wrap: wrap; }
-nav.top a { font-family: "VT323", monospace; font-size: 19px; color: var(--grass); text-decoration: none; border: 2px solid var(--panel-edge); padding: 4px 14px; background: var(--panel); }
-nav.top a:hover, nav.top a:focus-visible { border-color: var(--grass); outline: none; }
-p.lead { color: var(--dim); font-size: 19px; }
-h2 { font-size: 30px; color: var(--grass); margin: 34px 0 8px; }
-.hero { width: 100%; height: auto; display: block; border: 2px solid var(--panel-edge); image-rendering: auto; }
-video {
-  width: 100%; height: auto; display: block;
-  border: 2px solid var(--panel-edge); background: #000;
-}
-.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 8px; }
-.gallery a { display: block; border: 2px solid var(--panel-edge); background: var(--panel); }
-.gallery a:hover, .gallery a:focus-visible { border-color: var(--grass); outline: none; }
-.gallery img { width: 100%; height: auto; display: block; }
-ul.features { margin: 8px 0 0; padding-left: 22px; }
-ul.features li { margin: 6px 0; }
-section.card {
-  border: 2px solid var(--panel-edge); border-left: 6px solid var(--grass);
-  background: var(--panel); padding: 6px 24px 18px; margin: 26px 0;
-}
-section.card h2 { margin-top: 14px; }
-table { border-collapse: collapse; margin-top: 6px; }
-td, th { border: 1px solid var(--panel-edge); padding: 6px 14px; text-align: left; }
-th { color: var(--amber); text-transform: uppercase; font-size: 13.5px; letter-spacing: 1px; }
-.pill { display: inline-block; background: var(--amber-soft); color: var(--amber); padding: 1px 10px; font-size: 14px; }
-footer { margin-top: 70px; color: var(--dim); font-size: 14px; border-top: 2px solid var(--panel-edge); padding-top: 16px; }
 a { color: var(--grass); }
-a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+img { max-width: 100%; height: auto; display: block; }
+.pixel { font-family: var(--pixel); font-weight: 400; letter-spacing: .5px; }
+h1, h2, h3 { font-family: var(--pixel); font-weight: 400; letter-spacing: .5px; margin: 0; }
+h2 { font-size: clamp(30px, 4vw, 42px); color: var(--grass); line-height: 1.1; }
+h3 { font-size: 28px; color: var(--amber); line-height: 1.1; }
+p { margin: .6em 0; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 22px; }
+
+/* ---------- top rail ---------- */
+.top {
+  position: sticky; top: 0; z-index: 10;
+  background: linear-gradient(180deg, #2a1a0d, #1c1108);
+  border-bottom: 3px solid var(--plank-dk); box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 58px; padding-top: 6px; padding-bottom: 6px; }
+@media (max-width: 700px) { .top .wrap { flex-direction: column; gap: 4px; } nav { justify-content: center; } }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--grass); text-decoration: none; }
+.brand img { height: 30px; width: auto; }
+.brand span { font-family: var(--pixel); font-size: 26px; letter-spacing: 1px; }
+nav a { font-family: var(--pixel); font-size: 20px; color: var(--cream); text-decoration: none; padding: 6px 12px; border-radius: 4px; }
+nav a:hover { color: var(--amber); background: rgba(255, 255, 255, .06); }
+nav { display: flex; gap: 2px; flex-wrap: wrap; justify-content: flex-end; }
+
+/* ---------- hero ---------- */
+.hero { position: relative; overflow: hidden; background: #0b120c url("media/hero.jpg") center 35% / cover no-repeat; border-bottom: 10px solid var(--plank); }
+.hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(8, 14, 10, .30) 0%, rgba(8, 14, 10, .55) 55%, rgba(16, 25, 15, .96) 100%);
+}
+.hero .inner { position: relative; z-index: 1; text-align: center; padding: 84px 22px 66px; max-width: 900px; margin: 0 auto; }
+.hero .logo { width: min(620px, 82vw); margin: 0 auto 6px; filter: drop-shadow(0 10px 22px rgba(0, 0, 0, .55)); }
+.hero .tag { font-family: var(--pixel); font-size: clamp(28px, 4.2vw, 44px); color: var(--amber); text-shadow: 0 3px 0 rgba(0, 0, 0, .6); margin: 8px 0 4px; }
+.hero .lead { font-size: clamp(17px, 1.7vw, 20px); color: var(--cream); max-width: 640px; margin: 10px auto 26px; text-shadow: 0 2px 6px rgba(0, 0, 0, .7); }
+.actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  font-family: var(--pixel); font-size: 24px; line-height: 1; padding: 13px 26px 12px; text-decoration: none; display: inline-block;
+  color: var(--cream); background: linear-gradient(180deg, #2a3b29, #1a271b);
+  border: 2px solid var(--plank-dk); border-radius: 3px;
+  box-shadow: inset 2px 2px 0 var(--plank-hi), inset -2px -2px 0 var(--peg), 0 8px 16px rgba(0, 0, 0, .40);
+  transition: transform .12s ease, filter .12s ease;
+}
+.btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.btn.primary { background: linear-gradient(180deg, var(--amber), var(--amber-deep)); color: #2b1a08; }
+.btn.ghost { background: rgba(16, 25, 15, .55); }
+.pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+.pill { font-family: var(--pixel); font-size: 18px; letter-spacing: 1px; padding: 4px 14px; border: 2px solid var(--plank); border-radius: 999px; color: var(--dim); background: rgba(16, 25, 15, .6); }
+
+/* ---------- wooden signs ---------- */
+.sign {
+  position: relative; border: 10px solid var(--plank); border-radius: 5px; padding: 30px 34px;
+  background:
+    radial-gradient(circle at 9px 9px, var(--peg) 4.5px, transparent 5.5px),
+    radial-gradient(circle at calc(100% - 9px) 9px, var(--peg) 4.5px, transparent 5.5px),
+    radial-gradient(circle at 9px calc(100% - 9px), var(--peg) 4.5px, transparent 5.5px),
+    radial-gradient(circle at calc(100% - 9px) calc(100% - 9px), var(--peg) 4.5px, transparent 5.5px),
+    linear-gradient(180deg, var(--board-3), var(--board-2) 60%, var(--board));
+  box-shadow: inset 0 0 0 2px var(--plank-dk), inset 0 3px 0 rgba(255, 255, 255, .06), 0 16px 36px rgba(0, 0, 0, .5);
+}
+.sign::before { content: ""; position: absolute; left: -10px; right: -10px; top: -10px; height: 4px; background: var(--plank-hi); border-radius: 3px 3px 0 0; }
+.sign::after { content: ""; position: absolute; left: -10px; right: -10px; bottom: -10px; height: 4px; background: var(--plank-dk); border-radius: 0 0 3px 3px; }
+section.block { padding: 64px 0 8px; }
+.kicker { font-family: var(--pixel); font-size: 20px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
+.sub { color: var(--dim); max-width: 720px; }
+
+/* rule sign with the mascot */
+.rule { display: grid; grid-template-columns: 150px 1fr; gap: 26px; align-items: center; }
+.rule .mascot { width: 150px; filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .5)); }
+.rule .say { font-size: clamp(20px, 2.2vw, 26px); line-height: 1.45; }
+.rule .say strong { color: var(--amber); font-weight: 600; }
+.stars { display: inline-flex; gap: 6px; vertical-align: middle; margin-left: 10px; }
+.star { width: 26px; height: 26px; fill: var(--amber); filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .5)); }
+.star.off { fill: #3a4432; }
+@media (max-width: 640px) { .rule { grid-template-columns: 1fr; text-align: center; } .rule .mascot { margin: 0 auto; } }
+
+/* trailer */
+.trailer video { width: 100%; height: auto; display: block; background: #000; border: 10px solid var(--plank); border-radius: 5px; box-shadow: 0 18px 40px rgba(0, 0, 0, .55); }
+.credit { color: var(--dim-2); font-size: 13.5px; margin-top: 10px; }
+
+/* three steps */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 26px; }
+.step { padding: 24px 26px 26px; }
+.step .n { font-family: var(--pixel); font-size: 64px; line-height: .8; color: var(--grass); text-shadow: 0 4px 0 rgba(0, 0, 0, .5); }
+.step h3 { margin: 12px 0 8px; }
+.step p { color: var(--dim); margin: 0; }
+.step img { height: 56px; width: auto; margin-top: 14px; image-rendering: pixelated; }
+.step .stars { margin: 16px 0 0; }
+.step .stars .star { width: 34px; height: 34px; }
+
+/* machines */
+.machines { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: 12px; margin-top: 26px; }
+.machine { text-align: center; }
+.machine img { width: 100%; max-width: 110px; margin: 0 auto; border: 3px solid var(--plank-dk); border-radius: 4px; box-shadow: inset 0 0 0 2px #0b120c, 0 8px 16px rgba(0, 0, 0, .4); image-rendering: pixelated; }
+.machine span { display: block; font-family: var(--pixel); font-size: 20px; color: var(--cream); margin-top: 8px; }
+.machine small { display: block; color: var(--dim-2); font-size: 13px; line-height: 1.35; }
+
+/* gallery */
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 26px; }
+.gallery a { display: block; border: 4px solid var(--plank-dk); border-radius: 4px; overflow: hidden; background: #000; box-shadow: 0 10px 22px rgba(0, 0, 0, .45); transition: transform .15s ease; }
+.gallery a:hover, .gallery a:focus-visible { transform: translateY(-3px); border-color: var(--plank-hi); outline: none; }
+.gallery a:first-child { grid-column: span 2; grid-row: span 2; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 700px) { .gallery { grid-template-columns: repeat(2, 1fr); } .gallery a:first-child { grid-column: span 2; grid-row: span 1; } }
+
+/* living island */
+.living { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; align-items: start; }
+.living ul { margin: 12px 0 0; padding-left: 20px; }
+.living li { margin: 7px 0; }
+.living li b { color: var(--amber); font-weight: 600; }
+.biomes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.biomes span { font-family: var(--pixel); font-size: 19px; padding: 4px 12px; border: 2px solid var(--plank-dk); border-radius: 4px; color: var(--cream); }
+.biomes span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 8px; background: var(--c, var(--grass)); vertical-align: -1px; }
+.crystal { width: 120px; float: right; margin: -10px 0 0 14px; image-rendering: pixelated; filter: drop-shadow(0 6px 12px rgba(95, 208, 236, .35)); }
+@media (max-width: 760px) { .living { grid-template-columns: 1fr; } }
+
+/* platforms */
+.platforms { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 26px; }
+.platform { padding: 22px 24px; }
+.platform h3 { font-size: 26px; color: var(--cream); }
+.platform .status { display: inline-block; margin-top: 10px; font-family: var(--pixel); font-size: 18px; letter-spacing: 1px; color: var(--amber); border: 2px solid var(--amber-deep); border-radius: 999px; padding: 2px 12px; }
+.platform p { color: var(--dim); margin: 10px 0 0; }
+
+footer { margin-top: 70px; padding: 34px 0 60px; border-top: 10px solid var(--plank); background: linear-gradient(180deg, #1c1108, var(--board) 60%); color: var(--dim); font-size: 14.5px; }
+footer .links { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 12px; }
+footer .links a { font-family: var(--pixel); font-size: 20px; text-decoration: none; }
 </style>
 </head>
 <body>
-<main>
-<header class="site">
-  <p class="brand">BLOOMSTEAD<small>a cozy automation game</small></p>
-  <nav class="top" aria-label="Navigation">
-    <a href="versions.html">Release notes</a>
-    <a href="privacy.html">Privacy policy</a>
-  </nav>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="star" viewBox="0 0 24 24"><path d="M12 2.6l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.5l-5.9 3.2 1.3-6.6L2.5 9.5l6.6-.8z"/></symbol></svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="media/crystal.png" alt="" width="30" height="30"><span>BLOOMSTEAD</span></a>
+    <nav aria-label="Navigation">
+      <a href="#trailer">Trailer</a>
+      <a href="#how">How it plays</a>
+      <a href="#screens">Screenshots</a>
+      <a href="versions.html">Release notes</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </div>
 </header>
 
-<p class="lead">The world has gone quiet. Harvest sap, build small machines, and let your
-factory bring the bloom back, tile by tile. The reward is watching a dead world
-turn green again.</p>
-
-<img class="hero" src="media/header_capsule.png" alt="Bloomstead: a blooming meadow with a little sap factory" width="920" height="430">
-
-<h2>Trailer</h2>
-<video controls preload="metadata" poster="media/screenshot_01_factory_meadow.png">
-  <source src="media/bloomstead_trailer.mp4" type="video/mp4">
-  Your browser cannot play this video: <a href="media/bloomstead_trailer.mp4">download the trailer</a>.
-</video>
-<p style="color: var(--dim); font-size: 13.5px; margin-top: 6px;">Trailer music: “Wholesome” by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
-
-<section class="card">
-<h2>What's inside</h2>
-<ul class="features">
-  <li>Nine machines that chain into small production lines: extractors, belts, bloomers, greenhouses, splitters, dynamos, sprinklers, tunnels and pumps.</li>
-  <li>A handmade campaign, then endless generated islands, all of them solvable. A daily challenge keeps your best times.</li>
-  <li>Nine biomes, each with its own palette: meadow, autumn, tundra, dusk, jungle, sakura, emerald, desert and coral.</li>
-  <li>Nine level types that change the rule: fixed machine stock, mazes, fishing tides, wasp defense, deliveries, exact-stock puzzles and more. The map tells you which is coming.</li>
-  <li>Every level is a riddle: a small stock of pieces, a withered clearing. A placed piece stays where you put it, and the pieces you have left are your stars.</li>
-  <li>A lost puzzle costs nothing: out of pieces with land still grey, one tap restarts the level, instantly and for free.</li>
-  <li>Challenge cards at the start of a level: pick one optional rule or bonus goal for a few extra belts. Skipping is always free.</li>
-  <li>A living island answers your factory with bloombursts, fishing, buried chests and a golden hour.</li>
-  <li>A sanctuary that reblooms with your progress, a flower collection, a merchant of garden decorations, achievements, stats, and a free garden mode with a photo mode.</li>
-  <li>English and French, remappable keys, a reduced-motion option, full touch support.</li>
-</ul>
+<section class="hero">
+  <div class="inner">
+    <img class="logo" src="media/logo.png" alt="Bloomstead" width="1600" height="480">
+    <p class="tag">Automate the rebirth of a world.</p>
+    <p class="lead">The world has gone quiet. Place a small stock of machines, for good, and let your factory bring the bloom back, tile by tile. A cozy automation puzzle.</p>
+    <div class="actions">
+      <a class="btn primary" href="#trailer">Watch the trailer</a>
+      <a class="btn ghost" href="versions.html">Release notes</a>
+    </div>
+    <div class="pills"><span class="pill">PC</span><span class="pill">Android</span><span class="pill">Browser</span><span class="pill">English + Français</span></div>
+  </div>
 </section>
 
-<h2>Screenshots</h2>
-<div class="gallery">
-  <a href="media/screenshot_01_factory_meadow.png"><img loading="lazy" src="media/thumbs/screenshot_01_factory_meadow.jpg" alt="A little factory rebloooming a meadow" width="640" height="360"></a>
-  <a href="media/screenshot_02_bloom_wave_jungle.png"><img loading="lazy" src="media/thumbs/screenshot_02_bloom_wave_jungle.jpg" alt="Sprinklers firing a bloom wave in the jungle" width="640" height="360"></a>
-  <a href="media/screenshot_03_desert.png"><img loading="lazy" src="media/thumbs/screenshot_03_desert.jpg" alt="A conveyor chain crossing the desert" width="640" height="360"></a>
-  <a href="media/screenshot_04_sakura.png"><img loading="lazy" src="media/thumbs/screenshot_04_sakura.jpg" alt="A factory blooming under the sakura petals" width="640" height="360"></a>
-  <a href="media/screenshot_05_world_map.png"><img loading="lazy" src="media/thumbs/screenshot_05_world_map.jpg" alt="The world map and its golden path" width="640" height="360"></a>
-  <a href="media/screenshot_06_garden.png"><img loading="lazy" src="media/thumbs/screenshot_06_garden.jpg" alt="A fully bloomed garden" width="640" height="360"></a>
-  <a href="media/screenshot_07_living_island.png"><img loading="lazy" src="media/thumbs/screenshot_07_living_island.jpg" alt="The living island: an overcharge, a fishing line and bloombursts" width="640" height="360"></a>
-</div>
+<main class="wrap">
 
-<section class="card">
-<h2>En français</h2>
-<p>Le monde s'est éteint. Récolte la sève, assemble de petites machines et laisse ton
-usine faire refleurir la terre, case après case. Chaque niveau est un petit casse-tête
-d'usine : un stock de pièces, une clairière fanée, et une pièce posée reste où tu l'as
-mise. Les pièces qu'il te reste sont tes étoiles ; rater, c'est recommencer d'un geste,
-gratuitement. Neuf machines, neuf biomes, neuf types de niveaux, des cartes-défis à
-choisir en début de partie, une campagne faite main puis des îles à l'infini, un défi
-du jour, un jardin libre. La récompense, c'est de voir le monde reverdir. Le jeu est
-entièrement traduit en français.</p>
-</section>
+  <section class="block">
+    <div class="sign rule">
+      <img class="mascot" src="media/mascot.png" alt="The brumelin guide" width="256" height="256">
+      <p class="say">Every level is a riddle. A small stock of pieces, a withered clearing. <strong>A piece you place stays where you put it.</strong> The pieces you have left are your stars
+        <span class="stars" aria-label="three stars"><svg class="star"><use href="#star"/></svg><svg class="star"><use href="#star"/></svg><svg class="star"><use href="#star"/></svg></span>
+        <br>Miss, and one tap restarts the level, instantly and for free.</p>
+    </div>
+  </section>
 
-<h2>Where to play</h2>
-<table>
-  <tr><th>Platform</th><th>Status</th></tr>
-  <tr><td>PC (Steam, itch.io)</td><td><span class="pill">In preparation</span></td></tr>
-  <tr><td>Android (Google Play)</td><td><span class="pill">In preparation</span></td></tr>
-  <tr><td>Browser (web portals)</td><td><span class="pill">In preparation</span></td></tr>
-</table>
-<p>The Steam page is in the works. The wishlist link will appear here as soon as it is live.</p>
+  <section class="block trailer" id="trailer">
+    <p class="kicker">Trailer</p>
+    <h2>Fifty seconds of quiet turning green</h2>
+    <video controls preload="metadata" poster="media/screenshot_01_factory_meadow.png">
+      <source src="media/bloomstead_trailer.mp4" type="video/mp4">
+      Your browser cannot play this video: <a href="media/bloomstead_trailer.mp4">download the trailer</a>.
+    </video>
+    <p class="credit">Trailer music: "Wholesome" by Kevin MacLeod (<a href="https://incompetech.com">incompetech.com</a>), <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+  </section>
+
+  <section class="block" id="how">
+    <p class="kicker">How it plays</p>
+    <h2>Read, place, watch it bloom</h2>
+    <p class="sub">No hand painting, no undo. Each level hands you a few machines and a grey clearing; the whole game is deciding where they go.</p>
+    <div class="steps">
+      <div class="sign step">
+        <div class="n">1</div>
+        <h3>Read the land</h3>
+        <p>Crystals hold the sap. Rocks and ponds shape the route. Before you commit, the reach of a machine glows on the tiles it would bloom.</p>
+        <img src="media/crystal.png" alt="" width="256" height="256">
+      </div>
+      <div class="sign step">
+        <div class="n">2</div>
+        <h3>Place for good</h3>
+        <p>Extractor on a crystal, belts across the dust, a bloomer at the end of the line. Sprouts ride the belts and the tiles turn green where your factory succeeds.</p>
+        <img src="media/machines/bloomer.png" alt="" width="100" height="100">
+      </div>
+      <div class="sign step">
+        <div class="n">3</div>
+        <h3>Keep your pieces</h3>
+        <p>Three stars for a lean layout, two with a spare, one when the stock runs dry. Out of pieces with land still grey? Restart, free, in one tap.</p>
+        <div class="stars" aria-label="star rating"><svg class="star"><use href="#star"/></svg><svg class="star"><use href="#star"/></svg><svg class="star off"><use href="#star"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="machines">
+    <p class="kicker">Nine machines</p>
+    <h2>Small parts, long chains</h2>
+    <p class="sub">They join the toolbox one level at a time across the campaign, each with its own reach and its own trick.</p>
+    <div class="machines">
+      <div class="machine"><img src="media/machines/extractor.png" alt="Extractor" width="100" height="100"><span>Extractor</span><small>On a crystal: draws sap.</small></div>
+      <div class="machine"><img src="media/machines/belt.png" alt="Belt" width="100" height="100"><span>Belt</span><small>Carries the sprouts.</small></div>
+      <div class="machine"><img src="media/machines/bloomer.png" alt="Bloomer" width="100" height="100"><span>Bloomer</span><small>Blooms a few tiles.</small></div>
+      <div class="machine"><img src="media/machines/greenhouse.png" alt="Greenhouse" width="100" height="100"><span>Greenhouse</span><small>Blooms a wide zone.</small></div>
+      <div class="machine"><img src="media/machines/splitter.png" alt="Splitter" width="100" height="100"><span>Splitter</span><small>Two outputs.</small></div>
+      <div class="machine"><img src="media/machines/dynamo.png" alt="Dynamo" width="100" height="100"><span>Dynamo</span><small>Speeds nearby belts.</small></div>
+      <div class="machine"><img src="media/machines/sprinkler.png" alt="Sprinkler" width="100" height="100"><span>Sprinkler</span><small>A whole area at once.</small></div>
+      <div class="machine"><img src="media/machines/tunnel.png" alt="Tunnel" width="100" height="100"><span>Tunnel</span><small>Under the rocks.</small></div>
+      <div class="machine"><img src="media/machines/pump.png" alt="Pump" width="100" height="100"><span>Pump</span><small>On water: boosts blooming.</small></div>
+    </div>
+  </section>
+
+  <section class="block" id="screens">
+    <p class="kicker">Screenshots</p>
+    <h2>Nine biomes, one island at a time</h2>
+    <div class="gallery">
+      <a href="media/screenshot_01_factory_meadow.png"><img loading="lazy" src="media/screenshot_01_factory_meadow.png" alt="A little factory reblooming a meadow" width="1920" height="1080"></a>
+      <a href="media/screenshot_02_bloom_wave_jungle.png"><img loading="lazy" src="media/thumbs/screenshot_02_bloom_wave_jungle.jpg" alt="Sprinklers firing a bloom wave in the jungle" width="640" height="360"></a>
+      <a href="media/screenshot_03_desert.png"><img loading="lazy" src="media/thumbs/screenshot_03_desert.jpg" alt="A conveyor chain crossing the desert" width="640" height="360"></a>
+      <a href="media/screenshot_04_sakura.png"><img loading="lazy" src="media/thumbs/screenshot_04_sakura.jpg" alt="A factory blooming under the sakura petals" width="640" height="360"></a>
+      <a href="media/screenshot_05_world_map.png"><img loading="lazy" src="media/thumbs/screenshot_05_world_map.jpg" alt="The world map and its golden path" width="640" height="360"></a>
+      <a href="media/screenshot_06_garden.png"><img loading="lazy" src="media/thumbs/screenshot_06_garden.jpg" alt="A fully bloomed garden" width="640" height="360"></a>
+      <a href="media/screenshot_07_living_island.png"><img loading="lazy" src="media/thumbs/screenshot_07_living_island.jpg" alt="The living island: an overcharge, a fishing line and bloombursts" width="640" height="360"></a>
+    </div>
+  </section>
+
+  <section class="block" id="living">
+    <div class="sign living">
+      <div>
+        <p class="kicker">A living island</p>
+        <h2>The world answers your factory</h2>
+        <ul>
+          <li><b>Bloombursts</b> to gather into a nectar basket, and a merchant who sells garden decorations for it.</li>
+          <li><b>Machines to overcharge</b> at the right moment, falling sap stars, sleepy brambles to brush away, buried chests, a golden hour.</li>
+          <li><b>Ponds to fish</b> while the belts hum, and a fish and flower collection that grows across the campaign.</li>
+          <li><b>Challenge cards</b> at the start of a level: one optional rule for a few extra belts, or skip for free.</li>
+          <li><b>A sanctuary</b> that reblooms with your progress, a daily challenge with records, a free garden with a photo mode.</li>
+        </ul>
+      </div>
+      <div>
+        <img class="crystal" src="media/crystal.png" alt="" width="256" height="256">
+        <p class="kicker">Nine biomes</p>
+        <p class="sub">Thirty-one handmade levels, then endless generated islands in worlds of twenty-five, every one of them solvable. Nine level types change the rule along the way: fixed workshops, mazes, fishing tides, wasp defense, tea gardens, deliveries, exact-stock connection puzzles.</p>
+        <div class="biomes">
+          <span style="--c:#78bf4a">Meadow</span><span style="--c:#e08a3c">Autumn</span><span style="--c:#cfe6ef">Tundra</span><span style="--c:#8a6bc9">Dusk</span><span style="--c:#2f8f4e">Jungle</span><span style="--c:#f2a6c9">Sakura</span><span style="--c:#3fc98a">Emerald</span><span style="--c:#e6c27a">Desert</span><span style="--c:#f08a7a">Coral</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="fr">
+    <div class="sign">
+      <p class="kicker">En français</p>
+      <h2>Le monde s'est éteint</h2>
+      <p>Récolte la sève, assemble de petites machines et laisse ton usine faire refleurir la terre, case après case. Chaque niveau est un petit casse-tête d'usine : un stock de pièces, une clairière fanée, et une pièce posée reste où tu l'as mise. Les pièces qu'il te reste sont tes étoiles ; rater, c'est recommencer d'un geste, gratuitement.</p>
+      <p>Neuf machines, neuf biomes, neuf types de niveaux, des cartes-défis à choisir en début de partie, une campagne faite main puis des îles à l'infini, un défi du jour, un jardin libre. La récompense, c'est de voir le monde reverdir. Le jeu est entièrement traduit en français.</p>
+    </div>
+  </section>
+
+  <section class="block" id="play">
+    <p class="kicker">Where to play</p>
+    <h2>Three doors, one island</h2>
+    <div class="platforms">
+      <div class="sign platform"><h3>PC</h3><span class="status">In preparation</span><p>Steam and itch.io. The Steam page and its wishlist button will appear here as soon as they are live.</p></div>
+      <div class="sign platform"><h3>Android</h3><span class="status">In preparation</span><p>Google Play, with full touch controls: tap a machine, tap a tile.</p></div>
+      <div class="sign platform"><h3>Browser</h3><span class="status">In preparation</span><p>Web portals, the same game in a tab.</p></div>
+    </div>
+  </section>
+
+</main>
 
 <footer>
-<p><a href="versions.html">Release notes</a> · <a href="privacy.html">Privacy policy</a> ·
-<a href="https://github.com/Bloodstead">GitHub</a> · valentin.damlencourt@gmail.com</p>
-<p>Every visual and every note of music in Bloomstead is generated by the game's own code, without imported assets.</p>
+  <div class="wrap">
+    <div class="links">
+      <a href="versions.html">Release notes</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="https://github.com/Bloodstead">GitHub</a>
+      <a href="mailto:valentin.damlencourt@gmail.com">Contact</a>
+    </div>
+    <p>Made with Godot 4 by a solo developer in France. Every visual and every note of music in Bloomstead is generated by the game's own code, without imported assets.</p>
+  </div>
 </footer>
-</main>
 </body>
 </html>
