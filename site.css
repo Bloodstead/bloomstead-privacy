@@ -1,0 +1,107 @@
+/* Bloomstead site: one look for every page, the game's own (dark timber rails, carved wooden
+   signs, the pixel face for titles). Page-specific rules stay in each page's <style>. */
+@font-face { font-family: "VT323"; src: url("font.ttf") format("truetype"); font-display: swap; }
+:root {
+  --board: #10190f; --board-2: #152218; --board-3: #1c2c1f;
+  --plank: #6b4726; --plank-hi: #8a5f33; --plank-dk: #3d2612; --peg: #2a1a0c;
+  --cream: #f1eddc; --dim: #a8b39a; --dim-2: #7d8a74;
+  --grass: #78bf4a; --grass-deep: #4f8f2e; --amber: #ffd166; --amber-deep: #d99a2b; --red: #e06a5a; --water: #5fd0ec;
+  --pixel: "VT323", "Courier New", monospace;
+}
+* { box-sizing: border-box; }
+html { background: var(--board); scroll-behavior: smooth; }
+body {
+  margin: 0; color: var(--cream); background: var(--board);
+  font: 17px/1.65 "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-image:
+    radial-gradient(1100px 600px at 15% 0%, rgba(120, 191, 74, .10), transparent 65%),
+    radial-gradient(900px 500px at 90% 20%, rgba(255, 209, 102, .07), transparent 60%);
+}
+a { color: var(--grass); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+img { max-width: 100%; height: auto; display: block; }
+h1, h2, h3 { font-family: var(--pixel); font-weight: 400; letter-spacing: .5px; margin: 0; }
+h1 { font-size: clamp(34px, 5vw, 52px); color: var(--grass); line-height: 1.05; }
+h2 { font-size: clamp(30px, 4vw, 42px); color: var(--grass); line-height: 1.1; }
+h3 { font-size: 28px; color: var(--amber); line-height: 1.1; }
+p { margin: .6em 0; }
+code, .mail { font-family: var(--pixel); font-size: 1.05em; color: var(--amber); }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 22px; }
+.wrap.narrow { max-width: 860px; }
+.kicker { font-family: var(--pixel); font-size: 20px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
+.sub { color: var(--dim); max-width: 720px; }
+section.block { padding: 64px 0 8px; }
+.page-head { padding: 54px 0 10px; }
+.page-head .sub { margin-top: 10px; }
+
+/* ---------- top rail with the logo ---------- */
+.top {
+  position: sticky; top: 0; z-index: 10;
+  background: linear-gradient(180deg, #2a1a0d, #1c1108);
+  border-bottom: 3px solid var(--plank-dk); box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding-top: 8px; padding-bottom: 8px; }
+.brand { display: flex; align-items: center; text-decoration: none; }
+.brand img { height: 44px; width: auto; filter: drop-shadow(0 3px 0 rgba(0, 0, 0, .55)); }
+.top nav { display: flex; gap: 2px; flex-wrap: wrap; justify-content: flex-end; }
+.top nav a { font-family: var(--pixel); font-size: 20px; color: var(--cream); text-decoration: none; padding: 6px 12px; border-radius: 4px; }
+.top nav a:hover { color: var(--amber); background: rgba(255, 255, 255, .06); }
+.top nav a.here { color: var(--amber); }
+@media (max-width: 700px) { .top .wrap { flex-direction: column; gap: 4px; } .top nav { justify-content: center; } }
+
+/* ---------- buttons ---------- */
+.btn {
+  font-family: var(--pixel); font-size: 24px; line-height: 1; padding: 13px 26px 12px; text-decoration: none; display: inline-block;
+  color: var(--cream); background: linear-gradient(180deg, #2a3b29, #1a271b);
+  border: 2px solid var(--plank-dk); border-radius: 3px;
+  box-shadow: inset 2px 2px 0 var(--plank-hi), inset -2px -2px 0 var(--peg), 0 8px 16px rgba(0, 0, 0, .40);
+  transition: transform .12s ease, filter .12s ease;
+}
+.btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.btn.primary { background: linear-gradient(180deg, var(--amber), var(--amber-deep)); color: #2b1a08; }
+.btn.ghost { background: rgba(16, 25, 15, .55); }
+.btn.small { font-size: 20px; padding: 9px 18px 8px; }
+
+/* ---------- carved wooden signs (also every release and policy section) ---------- */
+.sign, section.release, section.sheet {
+  position: relative; border: 10px solid var(--plank); border-radius: 5px; padding: 30px 34px;
+  background:
+    radial-gradient(circle at 9px 9px, var(--peg) 4.5px, transparent 5.5px),
+    radial-gradient(circle at calc(100% - 9px) 9px, var(--peg) 4.5px, transparent 5.5px),
+    radial-gradient(circle at 9px calc(100% - 9px), var(--peg) 4.5px, transparent 5.5px),
+    radial-gradient(circle at calc(100% - 9px) calc(100% - 9px), var(--peg) 4.5px, transparent 5.5px),
+    linear-gradient(180deg, var(--board-3), var(--board-2) 60%, var(--board));
+  box-shadow: inset 0 0 0 2px var(--plank-dk), inset 0 3px 0 rgba(255, 255, 255, .06), 0 16px 36px rgba(0, 0, 0, .5);
+}
+.sign::before, section.release::before, section.sheet::before { content: ""; position: absolute; left: -10px; right: -10px; top: -10px; height: 4px; background: var(--plank-hi); border-radius: 3px 3px 0 0; }
+.sign::after, section.release::after, section.sheet::after { content: ""; position: absolute; left: -10px; right: -10px; bottom: -10px; height: 4px; background: var(--plank-dk); border-radius: 0 0 3px 3px; }
+
+/* ---------- release notes (sections inserted by the release pipeline) ---------- */
+section.release { margin: 30px 0; padding: 22px 30px 24px; }
+section.release h2 { font-size: 34px; color: var(--grass); margin: 0 0 4px; }
+section.release h2 time { font-family: "Segoe UI", system-ui, sans-serif; font-size: 14px; color: var(--dim); margin-left: 12px; letter-spacing: 0; }
+section.release h3 { font-size: 20px; color: var(--amber); margin: 16px 0 4px; letter-spacing: 2px; text-transform: uppercase; }
+section.release ul { margin: 4px 0 0; padding-left: 22px; }
+section.release li { margin: 4px 0; }
+section.release p.tech { color: var(--dim-2); font-size: 14.5px; font-style: italic; margin: 14px 0 0; }
+
+/* ---------- policy sheets ---------- */
+section.sheet { margin: 28px 0; }
+section.sheet h1 { font-size: clamp(32px, 4.5vw, 44px); }
+section.sheet h2 { font-size: 26px; color: var(--amber); margin: 26px 0 6px; }
+section.sheet .meta { color: var(--dim); font-size: 15px; margin-top: 4px; }
+section.sheet li { margin: 5px 0; }
+.lang-nav { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0 0; }
+.tldr { border-left: 5px solid var(--grass); padding: 8px 18px; margin: 20px 0; background: rgba(120, 191, 74, .07); }
+.tldr strong { color: var(--amber); }
+.tldr ul { margin: 6px 0 0; padding-left: 20px; }
+.tablewrap { overflow-x: auto; margin: 12px 0; }
+table { border-collapse: collapse; min-width: 520px; }
+th, td { border: 1px solid var(--plank-dk); padding: 8px 14px; text-align: left; vertical-align: top; }
+th { font-family: var(--pixel); font-size: 19px; letter-spacing: 1px; color: var(--amber); background: rgba(0, 0, 0, .25); }
+hr.lang-sep { border: 0; height: 4px; background: var(--plank); margin: 40px 0; border-radius: 2px; }
+
+/* ---------- footer ---------- */
+footer { margin-top: 70px; padding: 34px 0 60px; border-top: 10px solid var(--plank); background: linear-gradient(180deg, #1c1108, var(--board) 60%); color: var(--dim); font-size: 14.5px; }
+footer .links { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 12px; }
+footer .links a { font-family: var(--pixel); font-size: 20px; text-decoration: none; }

@@ -11,48 +11,10 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bloodstead.github.io/bloomstead-privacy/">
 <meta name="theme-color" content="#10190f">
+<link rel="stylesheet" href="site.css">
 <style>
-@font-face { font-family: "VT323"; src: url("font.ttf") format("truetype"); font-display: swap; }
-:root {
-  --board: #10190f; --board-2: #152218; --board-3: #1c2c1f;
-  --plank: #6b4726; --plank-hi: #8a5f33; --plank-dk: #3d2612; --peg: #2a1a0c;
-  --cream: #f1eddc; --dim: #a8b39a; --dim-2: #7d8a74;
-  --grass: #78bf4a; --grass-deep: #4f8f2e; --amber: #ffd166; --amber-deep: #d99a2b; --red: #e06a5a;
-  --pixel: "VT323", "Courier New", monospace;
-}
-* { box-sizing: border-box; }
-html { background: var(--board); scroll-behavior: smooth; }
-body {
-  margin: 0; color: var(--cream); background: var(--board);
-  font: 17px/1.65 "Segoe UI", system-ui, -apple-system, sans-serif;
-  background-image:
-    radial-gradient(1100px 600px at 15% 0%, rgba(120, 191, 74, .10), transparent 65%),
-    radial-gradient(900px 500px at 90% 20%, rgba(255, 209, 102, .07), transparent 60%);
-}
-a { color: var(--grass); }
-a:focus-visible, button:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
-img { max-width: 100%; height: auto; display: block; }
-.pixel { font-family: var(--pixel); font-weight: 400; letter-spacing: .5px; }
-h1, h2, h3 { font-family: var(--pixel); font-weight: 400; letter-spacing: .5px; margin: 0; }
-h2 { font-size: clamp(30px, 4vw, 42px); color: var(--grass); line-height: 1.1; }
-h3 { font-size: 28px; color: var(--amber); line-height: 1.1; }
-p { margin: .6em 0; }
-.wrap { max-width: 1100px; margin: 0 auto; padding: 0 22px; }
+/* page-specific rules; the shared look lives in site.css */
 
-/* ---------- top rail ---------- */
-.top {
-  position: sticky; top: 0; z-index: 10;
-  background: linear-gradient(180deg, #2a1a0d, #1c1108);
-  border-bottom: 3px solid var(--plank-dk); box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
-}
-.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 58px; padding-top: 6px; padding-bottom: 6px; }
-@media (max-width: 700px) { .top .wrap { flex-direction: column; gap: 4px; } nav { justify-content: center; } }
-.brand { display: flex; align-items: center; gap: 10px; color: var(--grass); text-decoration: none; }
-.brand img { height: 30px; width: auto; }
-.brand span { font-family: var(--pixel); font-size: 26px; letter-spacing: 1px; }
-nav a { font-family: var(--pixel); font-size: 20px; color: var(--cream); text-decoration: none; padding: 6px 12px; border-radius: 4px; }
-nav a:hover { color: var(--amber); background: rgba(255, 255, 255, .06); }
-nav { display: flex; gap: 2px; flex-wrap: wrap; justify-content: flex-end; }
 
 /* ---------- hero ---------- */
 .hero { position: relative; overflow: hidden; background: #0b120c url("media/hero.jpg") center 35% / cover no-repeat; border-bottom: 10px solid var(--plank); }
@@ -65,35 +27,9 @@ nav { display: flex; gap: 2px; flex-wrap: wrap; justify-content: flex-end; }
 .hero .tag { font-family: var(--pixel); font-size: clamp(28px, 4.2vw, 44px); color: var(--amber); text-shadow: 0 3px 0 rgba(0, 0, 0, .6); margin: 8px 0 4px; }
 .hero .lead { font-size: clamp(17px, 1.7vw, 20px); color: var(--cream); max-width: 640px; margin: 10px auto 26px; text-shadow: 0 2px 6px rgba(0, 0, 0, .7); }
 .actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.btn {
-  font-family: var(--pixel); font-size: 24px; line-height: 1; padding: 13px 26px 12px; text-decoration: none; display: inline-block;
-  color: var(--cream); background: linear-gradient(180deg, #2a3b29, #1a271b);
-  border: 2px solid var(--plank-dk); border-radius: 3px;
-  box-shadow: inset 2px 2px 0 var(--plank-hi), inset -2px -2px 0 var(--peg), 0 8px 16px rgba(0, 0, 0, .40);
-  transition: transform .12s ease, filter .12s ease;
-}
-.btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
-.btn.primary { background: linear-gradient(180deg, var(--amber), var(--amber-deep)); color: #2b1a08; }
-.btn.ghost { background: rgba(16, 25, 15, .55); }
 .pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
 .pill { font-family: var(--pixel); font-size: 18px; letter-spacing: 1px; padding: 4px 14px; border: 2px solid var(--plank); border-radius: 999px; color: var(--dim); background: rgba(16, 25, 15, .6); }
 
-/* ---------- wooden signs ---------- */
-.sign {
-  position: relative; border: 10px solid var(--plank); border-radius: 5px; padding: 30px 34px;
-  background:
-    radial-gradient(circle at 9px 9px, var(--peg) 4.5px, transparent 5.5px),
-    radial-gradient(circle at calc(100% - 9px) 9px, var(--peg) 4.5px, transparent 5.5px),
-    radial-gradient(circle at 9px calc(100% - 9px), var(--peg) 4.5px, transparent 5.5px),
-    radial-gradient(circle at calc(100% - 9px) calc(100% - 9px), var(--peg) 4.5px, transparent 5.5px),
-    linear-gradient(180deg, var(--board-3), var(--board-2) 60%, var(--board));
-  box-shadow: inset 0 0 0 2px var(--plank-dk), inset 0 3px 0 rgba(255, 255, 255, .06), 0 16px 36px rgba(0, 0, 0, .5);
-}
-.sign::before { content: ""; position: absolute; left: -10px; right: -10px; top: -10px; height: 4px; background: var(--plank-hi); border-radius: 3px 3px 0 0; }
-.sign::after { content: ""; position: absolute; left: -10px; right: -10px; bottom: -10px; height: 4px; background: var(--plank-dk); border-radius: 0 0 3px 3px; }
-section.block { padding: 64px 0 8px; }
-.kicker { font-family: var(--pixel); font-size: 20px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
-.sub { color: var(--dim); max-width: 720px; }
 
 /* rule sign with the mascot */
 .rule { display: grid; grid-template-columns: 150px 1fr; gap: 26px; align-items: center; }
@@ -152,9 +88,6 @@ section.block { padding: 64px 0 8px; }
 .platform .status { display: inline-block; margin-top: 10px; font-family: var(--pixel); font-size: 18px; letter-spacing: 1px; color: var(--amber); border: 2px solid var(--amber-deep); border-radius: 999px; padding: 2px 12px; }
 .platform p { color: var(--dim); margin: 10px 0 0; }
 
-footer { margin-top: 70px; padding: 34px 0 60px; border-top: 10px solid var(--plank); background: linear-gradient(180deg, #1c1108, var(--board) 60%); color: var(--dim); font-size: 14.5px; }
-footer .links { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 12px; }
-footer .links a { font-family: var(--pixel); font-size: 20px; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -162,7 +95,7 @@ footer .links a { font-family: var(--pixel); font-size: 20px; text-decoration: n
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#"><img src="media/crystal.png" alt="" width="30" height="30"><span>BLOOMSTEAD</span></a>
+    <a class="brand" href="./"><img src="media/logo.png" alt="Bloomstead" width="1600" height="480"></a>
     <nav aria-label="Navigation">
       <a href="#trailer">Trailer</a>
       <a href="#how">How it plays</a>
