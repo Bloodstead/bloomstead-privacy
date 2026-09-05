@@ -105,3 +105,9 @@ hr.lang-sep { border: 0; height: 4px; background: var(--plank); margin: 40px 0; 
 footer { margin-top: 70px; padding: 34px 0 60px; border-top: 10px solid var(--plank); background: linear-gradient(180deg, #1c1108, var(--board) 60%); color: var(--dim); font-size: 14.5px; }
 footer .links { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 12px; }
 footer .links a { font-family: var(--pixel); font-size: 20px; text-decoration: none; }
+
+/* ---------- release pictures (rendered by the release pipeline) ---------- */
+section.release .shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 14px 0 6px; }
+section.release .shots figure { margin: 0; }
+section.release .shots img { width: 100%; height: auto; display: block; border: 3px solid var(--plank-dk); border-radius: 3px; box-shadow: 0 6px 14px rgba(0, 0, 0, .4); }
+section.release .shots figcaption { font-size: 13.5px; color: var(--dim); margin-top: 6px; line-height: 1.3; }
